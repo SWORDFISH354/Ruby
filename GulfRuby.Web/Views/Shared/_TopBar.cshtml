@@ -1,0 +1,132 @@
+﻿
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-plane"></i> Gulf Ruby</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="@if (ViewBag.Name == "Home")
+                    {<text>active</text>}"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                @if (Request.IsAuthenticated)
+                {
+                    <li class="@if (ViewBag.Name == "Sales")
+                        {<text>active</text>}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sales<b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li><a href="@Url.Action("Index", "Ticket")">Ticketing</a></li>
+                            <li><a href="">Tour</a></li>
+                            <li><a href="">Visa</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="@if (ViewBag.Name == "HR")
+                        {<text>active</text>}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">HR<b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">   
+                            <li><a href="@Url.Action("GetAllEmployees", "EmployeeDetails")">Employee Management</a></li>
+                            <li><a href="@Url.Action("CompanyInformation", "EmployeeDetails")">Company Information</a></li>
+                            <li><a href="">Corporate Clients</a></li>
+                            <li><a href="">Suppliers</a></li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown @if (ViewBag.Name == "Login")
+                    {<text>active</text>}">
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Not Logged In <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li><a href="@Url.Action("Login", "Account")">Login</a></li>
+                            <li><a href="">Register</a></li>
+                            <li class="divider"></li>
+                            <li><a href="">Forgot Password</a></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@User.Identity.Name <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li><a href="">My Account</a></li>
+                            <li class="divider"></li>
+                            <li><a href="">Change Password</a></li>
+                            <li><a href="@Url.Action("Logout", "Account")">Log Out</a></li>
+                        </ul>
+                    }
+                </li>
+                @*@if (Request.IsAuthenticated)
+                {
+                    <li class="@if (ViewBag.Name == "UserActions")
+                        {<text>active</text>}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Actions <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        </ul>
+                    </li>
+                }*@
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+
+
+@*<div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav nav-pills pull-right">
+                    <li class="@if (ViewBag.Name == "Home")
+                        {<text>active</text>}"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="dropdown @if (ViewBag.Name == "Login")
+                        {<text>active</text>}">
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Not Logged In <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <li><a href="@Url.Action("Login", "Account")">Login</a></li>
+                                <li><a href="@Url.Action("Register", "Account")">Register</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("ForgotPassword", "Account")">Forgot Password</a></li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@User.Identity.Name <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <li><a href="@Url.Action("MyAccount", "Customer")">My Account</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("ChangePassword", "Account")">Change Password</a></li>
+                                <li><a href="@Url.Action("Logout", "Account")">Log Out</a></li>
+                            </ul>
+                        }
+                    </li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="@if (ViewBag.Name == "CustomerActions")
+                            {<text>active</text>}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer Actions <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <li><a href="@Url.Action("ReserveCar", "Customer")">Reserve a Car</a></li>
+                                <li><a href="@Url.Action("CurrentReservations", "Customer")">Current Reservations</a></li>
+                                <li><a href="@Url.Action("RentalHistory", "Customer")">My Rental History</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>*@

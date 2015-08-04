@@ -1,0 +1,158 @@
+﻿@model GulfRuby.Web.Models.EmployeeDetailModel
+
+@{
+    ViewBag.Title = "Employee Details";
+    ViewBag.Name = "EmployeeDetails";
+}
+
+@section scripts
+{
+    <script src="@Url.Content("~/Binding/Models/EmployeeDetailsModel.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Binding/ViewModels/EmployeeDetailsViewModel.js")" type="text/javascript"></script>
+}
+
+<div class="page-heading" style="color: steelblue">
+    <h3>Employee Details</h3>
+</div>
+
+<div class="alert alert-info" >
+    <div>
+        <div data-ng-controller="EmployeeDetailsViewModel" ng-init="EmployeeId = '@Model.Id'; setupEmployeeDetails();" ng-cloak>
+        
+            <form class="form-horizontal">
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="disabledInput">Employee No</label>
+                        <div class="col-md-3">
+                            <input class="form-control" id="disabledInput" type="text" ng-model="employeeDetailsModel.Id" disabled="">
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <label for="lblEmployeeID" class="col-md-2 control-label">Employee No</label>
+                        <div class="col-md-3">
+                            <label class="col-md-2 control-label" id="lblEmployeeID" ng-model="employeeDetailsModel.Id"></label>
+                        </div>
+                    </div>*@
+
+                    <div class="form-group">
+                        <label for="inputUserName" class="col-md-2 control-label">UserName</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="inputUserName" placeholder="UserName for login" ng-model="employeeDetailsModel.UserName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputName" class="col-md-2 control-label">Name</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="employeeDetailsModel.Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPosition" class="col-md-2 control-label">Position</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="inputPosition" placeholder="Employee Position" ng-model="employeeDetailsModel.Position">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassportNo" class="col-md-2 control-label">Passport No.</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="inputPassportNo" placeholder="Passport Number" ng-model="employeeDetailsModel.PassportNumber">
+                        </div>
+                        <label for="inputPassportExpiry" class="col-md-2 control-label">Expiry Date</label>
+                        <div class="input-group col-md-3">
+                            <input type="text" class="form-control" id="inputPassportExpiry" placeholder="Passport Expiry Date"
+                                   ng-model="employeeDetailsModel.PassportExpiry" is-open="openedPassportExpiry" datepicker-popup="dd/MM/yyyy">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openPassportExpiry($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmiratesID" class="col-md-2 control-label">Emirates ID</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="inputEmiratesID" placeholder="Emirates ID Number" ng-model="employeeDetailsModel.EmiratesID">
+                        </div>
+                        <label for="inputEmiratesExpiryDate" class="col-md-2 control-label">Expiry Date</label>
+                        <div class="input-group col-md-3">
+                            <input type="text" class="form-control" id="inputEmiratesExpiryDate" is-open="openedEmiratesExpiry" datepicker-popup="dd/MM/yyyy"
+                                   placeholder="Emirates ID Expiry Date" ng-model="employeeDetailsModel.EmiratesIDExpiry">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openEmiratesExpiry($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputVisaNo" class="col-md-2 control-label">Visa No</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="inputVisaNo" placeholder="Visa Number" ng-model="employeeDetailsModel.VisaNumber">
+                        </div>
+                        <label for="inputVisaExpiryDate" class="col-md-2 control-label">Expiry Date</label>
+                        <div class="input-group col-md-3">
+                            <input type="text" class="form-control" id="inputVisaExpiryDate" is-open="openedVisaExpiry" datepicker-popup="dd/MM/yyyy"
+                                   placeholder="Visa Expiry Date" ng-model="employeeDetailsModel.VisaExpiry">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openVisaExpiry($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputInsurance" class="col-md-2 control-label">Insurance Card No</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="inputInsurance" placeholder="Insurance Number" ng-model="employeeDetailsModel.InsuranceNumber">
+                        </div>
+                        <label for="inputInsuranceExpiryDate" class="col-md-2 control-label">Expiry Date</label>
+                        <div class="input-group col-md-3">
+                            <input type="text" class="form-control" id="inputInsuranceExpiryDate" is-open="openedInsuranceExpiry" datepicker-popup="dd/MM/yyyy"
+                                   placeholder="Insurance Expiry Date" ng-model="employeeDetailsModel.InsuranceExpiry">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openInsuranceExpiry($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputJoiningDate" class="col-md-2 control-label">Joining Date</label>
+                        <div class="input-group col-md-3" style="padding-left: 12px">
+                            <input type="datetime" class="form-control" id="inputJoiningDate" is-open="openedJoiningDate" datepicker-popup="dd/MM/yyyy" placeholder="Employee's joining Date" ng-model="employeeDetailsModel.JoiningDate">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openJoiningDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputBasicSalary" class="col-md-2 control-label">Basic Salary</label>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="inputBasicSalary" placeholder="Basic Salary" ng-model="employeeDetailsModel.BasicSalary">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAllowances" class="col-md-2 control-label">Allowances</label>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="inputAllowances" placeholder="Allowances" ng-model="employeeDetailsModel.Allowance">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="submit" class="btn btn-info" ng-click="submit()">
+                                <i class="glyphicon glyphicon-hand-up"></i> Submit
+                            </button>
+                            <a class="btn btn-danger" href="@Url.Action("GetAllEmployees", "EmployeeDetails")"><i class="glyphicon glyphicon-hand-down"></i> Cancel</a>
+
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+            @Html.Partial("~/Views/Shared/_ValidationErrors.cshtml")
+        </div>
+    </div>
+
+</div>
+

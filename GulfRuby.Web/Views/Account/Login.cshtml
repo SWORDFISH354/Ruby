@@ -1,0 +1,44 @@
+﻿@model GulfRuby.Web.Models.AccountLoginModel
+@{
+    ViewBag.Title = "Account Login";
+    ViewBag.Name = "Login";
+}
+
+@section scripts
+{
+    <script src="@Url.Content("~/Binding/Models/AccountLoginModel.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Binding/ViewModels/AccountLoginViewModel.js")" type="text/javascript"></script>
+}
+
+
+<div data-ng-controller="AccountLoginViewModel" ng-init="returnUrl = '@Model.ReturnUrl'" class="col-lg-9 center-block">
+    <div class="pushLarge"></div>
+    @Html.Partial("~/Views/Shared/_ValidationErrors.cshtml")
+    <form class="alert alert-info center-block">
+        <p class="input-group col-sm-6">
+            <span class="input-group-addon">UserName:</span>
+            <input type="text" class="form-control" ng-model="accountModel.UserName" placeholder="User name" />
+        </p>
+        <p class="input-group col-sm-6">
+            <span class="input-group-addon">Password:</span>
+            <input type="password" class="form-control" ng-model="accountModel.Password" placeholder="password"/>
+        </p>
+        <p class="input-group col-sm-4">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="accountModel.RememberMe"> Remember Me
+                </label>
+            </div>
+            @*<input class="checkbox pull-left text-left" type="checkbox" ng-model="accountModel.RememberMe">
+            <span style="padding-left: 5px" > Remember Me</span>*@
+        </p>
+        <p class="input-group col-sm-6">
+            <button type="button" class="btn btn-info" ng-click="login()">
+                <i class="glyphicon glyphicon-log-in">
+                </i> 
+                Login
+            </button>
+        </p>
+    </form>
+
+</div>

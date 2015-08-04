@@ -1,0 +1,67 @@
+﻿
+html, body {
+    height: 100%;
+    background-color: #white;
+}
+.heading-container {
+    margin: 0 auto;
+    max-width: 100%;
+}
+.container {
+    margin: 0 auto;
+    max-width: 960px;
+}
+.container > hr {
+    margin: 30px 0;
+}
+.container .credit {
+    margin: 20px 0;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -65px;
+    background-color: white;
+    max-width: 960px;
+}
+.push {
+    height: 65px;
+}
+
+.pushSmall {
+    height: 45px;
+}
+
+
+.pushLarge {
+    height: 100px;
+}
+.footer {
+    height: 65px;
+}
+
+
+.employeeGrid {
+     width: 650px;
+     height: 450px;
+}
+
+
+/*Sorting arrows class form thea smart table*/ 
+/* <SMART Table> */
+.st-sort-ascent:before{
+    content: '\25B2';
+}
+
+.st-sort-descent:before {
+    content: '\25BC';
+}
+/* </SMART Table? */
+
+
+
+/*.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+	background-color:aliceblue;
+}*/
