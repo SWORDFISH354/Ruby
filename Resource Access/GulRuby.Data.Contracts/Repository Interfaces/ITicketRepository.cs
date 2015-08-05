@@ -8,9 +8,9 @@ using GulRuby.Business.Entities;
 
 namespace GulRuby.Data.Contracts.Repository_Interfaces
 {
-   public interface ITicketRepository : IDataRepository<Ticket>
+   public interface ITicketRepository : IDataRepository<Booking>
     {
-       void AddIteniaryToTicket(Ticket t, Itinerary i);   
+       void AddIteniaryToTicket(Booking t, Itinerary i);   
     }
 }
     

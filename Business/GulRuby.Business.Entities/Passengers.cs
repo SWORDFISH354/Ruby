@@ -20,7 +20,7 @@ namespace GulRuby.Business.Entities
       //  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
-        public int TicketId{get;set;}
+        public int BookingId{get;set;}
        
         public string FirstName  { get; set; }     
         public string SecondName { get; set; }     
@@ -31,6 +31,6 @@ namespace GulRuby.Business.Entities
         public string AddedBy  { get; set; }
         public bool IsActive { get; set; }
 
-        public virtual Ticket Ticket { set; get; }
+        public virtual Booking Ticket { set; get; }
     }
 }

@@ -74,13 +74,13 @@
             <div class="form-group">
                 <label for="inputContact" class="col-md-2 control-label">Contact Number</label>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" id="inputContact" placeholder="Customer Contact Number" ng-model="ticketStep1Model.ContactNumber">
+                    <input type="number" class="form-control" id="inputContact" placeholder="Customer Contact Number" ng-model="ticketStep1Model.ContactNumber">
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputemail" class="col-md-2 control-label">Email</label>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" id="inputemail" placeholder="email Id" ng-model="ticketStep1Model.Email">
+                    <input type="email" class="form-control" id="inputemail" placeholder="email Id" ng-model="ticketStep1Model.Email">
                 </div>
             </div>
         </div>
@@ -155,9 +155,12 @@
                     <tr ng-repeat="passenger in ticketStep1Model.Passengers">
                         <td><input type="text" ng-model="passenger.FirstName" ng-required="true" class="form-control input-sm" placeholder="First Name"></td>
                         <td><input type="text" ng-model="passenger.SecondName" ng-required="true" class="form-control input-sm" placeholder="Second Name"></td>
-                        <td><input type="text" ng-model="passenger.Type" ng-required="true" class="form-control input-sm" placeholder="Type"></td>
-                        <td><input type="text" ng-model="passenger.PassportNo" ng-required="true" class="form-control input-sm" placeholder="Passport No."></td>
-                        <td><input type="text" ng-model="passenger.Nationality" ng-required=" true" class="form-control input-sm" placeholder="Nationality"></td>
+                        <td><select class="form-control" id="selectPassengerType">
+                                <option ng-repeat="passengerType in PassengerTypeSet" ng-required='selectedPassengerType == 1' ng-model="passenger.Type">{{passengerType.Name}}</option>
+                            </select></td>
+                        @*<td><input type="text" ng-model="passenger.Type"  class="form-control input-sm" placeholder="Type"></td>*@
+                        <td><input type="text" ng-model="passenger.PassportNo"  class="form-control input-sm" placeholder="Passport No."></td>
+                        <td><input type="text" ng-model="passenger.Nationality"  class="form-control input-sm" placeholder="Nationality"></td>
                     </tr>
 
                     </tbody>

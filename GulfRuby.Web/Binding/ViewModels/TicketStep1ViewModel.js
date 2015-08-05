@@ -87,6 +87,7 @@
 
 
     // test Data for later hookup to DB
+    $scope.PassengerTypeSet =[{  Name: "Adult" }, {  Name: "Infant" }];
     $scope.CareOfSet = [{ Id: 1, Name: "Gulf Ruby" }, { Id: 2, Name: "Shajan Joseph" }, { Id: 3, Name: "Shiju Thomas" }];
     $scope.CorporateClientSet = [{ Id: 0, Name: "" }, { Id: 1, Name: "ABC Industries" }, { Id: 2, Name: "Etisalat" }, { Id: 3, Name: "Ashraf & Partners" }];
     $scope.SupplierSet = [{ Id: 0, Name: "" }, { Id: 1, Name: "ABC Suppliers" }, { Id: 2, Name: "Emirate Suppliers" }, { Id: 3, Name: "Al Futtaim Suppliers" }];
@@ -146,12 +147,15 @@
         viewModelHelper.modelIsValid = $scope.ticketStep1Model.isValid;
         viewModelHelper.modelErrors = $scope.ticketStep1Model.errors;
         if (viewModelHelper.modelIsValid) {
+            $scope.ticketStep1Model.CustomerType =  $scope.selectedCustomerType;
+            $scope.ticketStep1Model.ModeOfIssue =  $scope.selectedIssueMode;
 
-            viewModelHelper.apiGet('api/hr/getemployees', null,
-                    function (result) {
-                        $scope.Employees = result.data;
-                        $scope.displayedCollection = [].concat($scope.Employees);
-                    });
+             $scope.ticketStep1Model.Status = 1;
+            viewModelHelper.apiPost('api/ticket/save', $scope.ticketStep1Model,
+                function (result) {
+                  $scope.viewMode = 'success';
+            });
+
         } else {
             viewModelHelper.modelErrors = $scope.ticketStep1Model.errors;
         }

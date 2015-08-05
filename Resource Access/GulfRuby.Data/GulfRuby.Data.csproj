@@ -57,6 +57,7 @@
     <Compile Include="DataRepository\AirlineRepository.cs" />
     <Compile Include="DataRepository\CompanyInformationRepository.cs" />
     <Compile Include="DataRepository\EmployeeRepository.cs" />
+    <Compile Include="DataRepository\TicketRepository.cs" />
     <Compile Include="GulfRubyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

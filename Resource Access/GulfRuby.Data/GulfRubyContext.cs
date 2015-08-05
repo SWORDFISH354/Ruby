@@ -24,6 +24,9 @@ namespace GulfRuby.Data
         public DbSet<Airline> AirlineSet { get; set; }
         public DbSet<Employee> EmployeeSet { get; set; }
         public DbSet<CompanyInformation> CompanyInformationSet { get; set; }
+        public DbSet<Itinerary> ItinerarySet { get; set; }
+        public DbSet<PassengerInfo> PassengerInfoSet { get; set; }
+        public DbSet<Booking> BookingSet { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,17 +39,17 @@ namespace GulfRuby.Data
             modelBuilder.Entity<CompanyInformation>().HasKey(a => a.ID).Ignore(e => e.EntityId).Ignore(e => e.IsDirty);
 
 
-            modelBuilder.Entity<Ticket>().HasKey(a => a.ID).Ignore(e => e.EntityId).Ignore(e => e.IsDirty);
+            modelBuilder.Entity<Booking>().HasKey(a => a.ID).Ignore(e => e.EntityId).Ignore(e => e.IsDirty);
 
-            modelBuilder.Entity<Ticket>()
+            modelBuilder.Entity<Booking>()
                         .HasMany<PassengerInfo>(s => s.Passengers)
                         .WithRequired(s => s.Ticket)
-                        .HasForeignKey(s => s.TicketId);
+                        .HasForeignKey(s => s.BookingId);
 
-            modelBuilder.Entity<Ticket>()
+            modelBuilder.Entity<Booking>()
                         .HasMany<Itinerary>(s => s.Itinerary)
                         .WithRequired(s => s.Ticket)
-                        .HasForeignKey(s => s.TicketId);
+                        .HasForeignKey(s => s.BookingId);
 
         }
     }

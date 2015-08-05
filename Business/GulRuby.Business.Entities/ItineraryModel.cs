@@ -29,7 +29,7 @@ namespace GulRuby.Business.Entities
         //}
         // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }         
-        public int TicketId{set;get;}
+        public int BookingId{set;get;}
         public DateTime? Date{set;get;}
         public bool DateIsOpen {set;get;}    
         
@@ -43,6 +43,6 @@ namespace GulRuby.Business.Entities
         public ItineraryClassEnum Class{set;get;}
         public bool IsActive { set; get; }
 
-        public virtual Ticket Ticket { set; get; }
+        public virtual Booking Ticket { set; get; }
     }
 }

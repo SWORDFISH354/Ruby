@@ -26,8 +26,15 @@ namespace GulRuby.Business.Entities
     {
         Cash, CreditNote
     }
-    public class Ticket:ObjectBase,IIdentifiableEntity
+    public class Booking:ObjectBase,IIdentifiableEntity
     {
+        public Booking()
+        {
+            Itinerary = new List<Itinerary>();
+            Passengers = new List<PassengerInfo>();
+        }
+
+
         [NotNavigable]
         public int EntityId
         {
