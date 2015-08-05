@@ -81,6 +81,14 @@ namespace GulfRuby.Web.Controllers.API
 
         }
 
+        [HttpPost]
+        [Route("updatebookingstatus")]
+        [Authorize]
+        public HttpResponseMessage UpdateBookingStatus(HttpRequestMessage request, int  bookingid)
+        {
+            HttpResponseMessage response;
+            return null;
+        }
 
         [HttpPost]
         [Route("save")]

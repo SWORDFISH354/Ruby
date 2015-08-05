@@ -180,6 +180,8 @@
 
         };
 
+    
+
     $scope.save = function() {
         $scope.setupDatesOnSubmit();
         validator.ValidateModel($scope.ticketStep1Model, ticketStep1ModelRules);
@@ -209,7 +211,12 @@
         viewModelHelper.modelIsValid = $scope.ticketStep1Model.isValid;
         viewModelHelper.modelErrors = $scope.ticketStep1Model.errors;
         if (viewModelHelper.modelIsValid) {
-            $scope.ticketStep1Model.Status = 2;
+            $scope.ticketStep1Model.Status = 1;
+            viewModelHelper.apiPost('api/ticket/updatebookingstatus?bookingid=' + $scope.ticketStep1Model.ID + '&status=' +$scope.ticketStep1Model.Status, null, function (result) {
+                $scope.viewMode = 'success';
+                //$scope.ticketStep1Model.ID = result.data.ID;
+              //  $scope.ticketStep1Model.IssueDate = result.data.IssueDate;
+            });
         } else {
             viewModelHelper.modelErrors = $scope.ticketStep1Model.errors;
         }
