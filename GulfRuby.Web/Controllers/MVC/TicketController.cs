@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GulfRuby.Web.Core;
+using GulfRuby.Web.Models;
 
 namespace GulfRuby.Web.Controllers.MVC
 {
@@ -39,7 +40,7 @@ namespace GulfRuby.Web.Controllers.MVC
         [Authorize]
         public ActionResult TicketStep1(int id)
         {
-            return View();
+            return View(new TicketDetailModel() {ID = id});
         }
 
 

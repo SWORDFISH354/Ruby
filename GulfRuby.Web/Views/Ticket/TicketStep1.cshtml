@@ -1,4 +1,6 @@
-﻿@{
+﻿@model GulfRuby.Web.Models.TicketDetailModel
+
+@{
     ViewBag.Title = "Ticket Step1";
     ViewBag.Name = "TicketStep1";
 }
@@ -9,228 +11,230 @@
 }
 
 
-<div ng-controller="TicketStep1ViewModel" ng-cloak>
+<div ng-controller="TicketStep1ViewModel" ng-init="BookingID = '@Model.ID'; setupBookingDetails();" ng-cloak>
     <form class="form-horizontal">
-    <div class="row alert alert-info">
+        <div class="row alert alert-info">
 
 
 
-    <div class="form-group">
-        <label class="col-md-2 control-label" for="disabledInput">Date of Issue</label>
-        <div class="col-md-3">
-            <input class="form-control input-sm" id="disabledInput" type="text" disabled="" ng-model="ticketStep1Model.IssueDate">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-2 control-label" for="labelTicketID">Booking ID</label>
-        <div class="col-md-3">
-            <input class="form-control input-sm" id="disabledInput" type="number" disabled="" ng-model="ticketStep1Model.ID">
-        </div>
-    </div>
-    <fieldset>
-        <legend>Customer Info</legend>
-        <div>
             <div class="form-group">
-                <label class="col-md-2 control-label">Customer Type</label>
+                <label class="col-md-2 control-label" for="disabledInput">Date of Issue</label>
                 <div class="col-md-3">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" ng-model="selectedCustomerType" value="1" ng-change='newValue(selectedCustomerType)'>
-                            Walk-in
-                        </label>
+                    <input class="form-control input-sm" id="disabledInput" type="text" disabled="" ng-model="ticketStep1Model.IssueDate">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="labelTicketID">Booking ID</label>
+                <div class="col-md-3">
+                    <input class="form-control input-sm" id="disabledInput" type="number" disabled="" ng-model="ticketStep1Model.ID">
+                </div>
+            </div>
+            <fieldset>
+                <legend>Customer Info</legend>
+                <div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Customer Type</label>
+                        <div class="col-md-3">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" ng-model="selectedCustomerType" value="1" ng-change='newValue(selectedCustomerType)'>
+                                    Walk-in
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" ng-model="selectedCustomerType" value="2" ng-change='newValue(selectedCustomerType)'>
+                                    Corporate
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" ng-model="selectedCustomerType" value="2" ng-change='newValue(selectedCustomerType)'>
-                            Corporate
-                        </label>
+
+                    <div class="form-group" ng-show="showWalkin">
+                        <label for="selectCareOf" class="col-md-2 control-label">Care of</label>
+                        <div class="col-md-3">
+                            <select class="form-control" id="selectCareOf">
+                                <option ng-repeat="careOf in CareOfSet" ng-required='selectedCustomerType == 1' ng-model="ticketStep1ViewModel.CareOf">{{careOf.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="showCorporate">
+                        <label for="selectCorporateClient" class="col-md-2 control-label">Corporate Client</label>
+                        <div class="col-md-3">
+                            <select class="form-control" id="selectCorporateClient" ng-required='selectedCustomerType == 2'>
+                                <option ng-repeat="client in CorporateClientSet" ng-model="ticketStep1ViewModel.CorporateClient">{{client.Name}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="showWalkin">
+                        <label for="inputName" class="col-md-2 control-label">Customer Name</label>
+                        <div class="col-md-3">
+                            <input type="text" ng-required='selectedCustomerType == 1' class="form-control" id="inputName" placeholder="FirstName LastName" ng-model="ticketStep1Model.CustomerName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputContact" class="col-md-2 control-label">Contact Number</label>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="inputContact" placeholder="Customer Contact Number" ng-model="ticketStep1Model.ContactNumber">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputemail" class="col-md-2 control-label">Email</label>
+                        <div class="col-md-3">
+                            <input type="email" class="form-control" id="inputemail" placeholder="email ID" ng-model="ticketStep1Model.Email">
+                        </div>
                     </div>
                 </div>
-            </div>
+            </fieldset>
 
-            <div class="form-group" ng-show="showWalkin">
-                <label for="selectCareOf" class="col-md-2 control-label">Care of</label>
-                <div class="col-md-3">
-                    <select class="form-control" id="selectCareOf">
-                        <option ng-repeat="careOf in CareOfSet" ng-required='selectedCustomerType == 1' ng-model="ticketStep1ViewModel.CareOf">{{careOf.Name}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group" ng-show="showCorporate">
-                <label for="selectCorporateClient" class="col-md-2 control-label">Corporate Client</label>
-                <div class="col-md-3">
-                    <select class="form-control" id="selectCorporateClient" ng-required='selectedCustomerType == 2'>
-                        <option ng-repeat="client in CorporateClientSet" ng-model="ticketStep1ViewModel.CorporateClient">{{client.Name}}</option>
-
-                    </select>
-                </div>
-            </div>
-            <div class="form-group" ng-show="showWalkin">
-                <label for="inputName" class="col-md-2 control-label">Customer Name</label>
-                <div class="col-md-3">
-                    <input type="text" ng-required='selectedCustomerType == 1' class="form-control" id="inputName" placeholder="FirstName LastName" ng-model="ticketStep1Model.CustomerName">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputContact" class="col-md-2 control-label">Contact Number</label>
-                <div class="col-md-3">
-                    <input type="number" class="form-control" id="inputContact" placeholder="Customer Contact Number" ng-model="ticketStep1Model.ContactNumber">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputemail" class="col-md-2 control-label">Email</label>
-                <div class="col-md-3">
-                    <input type="email" class="form-control" id="inputemail" placeholder="email ID" ng-model="ticketStep1Model.Email">
-                </div>
-            </div>
-        </div>
-    </fieldset>
-
-    <div class="pushSmall"></div>
-    <fieldset>
-        <legend>Itinerary</legend>
-        <div>
-            <div class="col-md-12">
-                <table class="table table-hover table-bordered table-condensed table-striped table-responsive">
-                    <thead class="table-header">
-                    <tr>
-                        <th>Date</th>
-                        <th colspan="2">Sector (From/To)</th>
-                        <th>Carrier</th>
-                        <th>FlightNo</th>
-                        <th>DepTime</th>
-                        <th>ArrTime</th>
-                        <th>Status</th>
-                        <th>Class</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="itinerary in ticketStep1Model.Itineraries">
-                        <td class="col-sm-2">
-                            <div class="input-group">
-                                <input type="text" ng-required="true" ng-model="itinerary.Date" class="col-sm-12 form-control input-sm"
-                                       ng-model="Date" is-open="itinerary.DateIsOpen" datepicker-popup="dd/MM/yyyy">
-                                <span class="input-group-btn">
+            <div class="pushSmall"></div>
+            <fieldset>
+                <legend>Itinerary</legend>
+                <div>
+                    <div class="col-md-12">
+                        <table class="table table-hover table-bordered table-condensed table-striped table-responsive">
+                            <thead class="table-header">
+                                <tr>
+                                    <th>Date</th>
+                                    <th colspan="2">Sector (From/To)</th>
+                                    <th>Carrier</th>
+                                    <th>FlightNo</th>
+                                    <th>DepTime</th>
+                                    <th>ArrTime</th>
+                                    <th>Status</th>
+                                    <th>Class</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="itinerary in ticketStep1Model.Itineraries">
+                                    <td class="col-sm-2">
+                                        <div class="input-group">
+                                            <input type="text" ng-required="true" ng-model="itinerary.Date" class="col-sm-12 form-control input-sm"
+                                                   ng-model="Date" is-open="itinerary.DateIsOpen" datepicker-popup="dd/MM/yyyy">
+                                            <span class="input-group-btn">
                                                 <button type="button" class="btn btn-default btn-sm" ng-click="openDate($event, itinerary)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>
-                            </div>
-                        </td>
-                        <td><input type="text" ng-model="itinerary.From" ng-required="true" class="form-control input-sm" placeholder="From"></td>
-                        <td><input type="text" ng-model="itinerary.To" ng-required=" true" class="form-control input-sm" placeholder="To"></td>
-                        <td><input type="text" ng-model="itinerary.Carrier" ng-required=" true" class="form-control input-sm" placeholder="Carrier"></td>
-                        <td><input type="text" ng-model="itinerary.FlightNo" ng-required=" true" class="form-control input-sm" placeholder="FlightNo."></td>
-                        <td><input type="text" ng-model="itinerary.DeptTime" class=" form-control input-sm" placeholder="DeptTime"></td>
-                        <td><input type="text" ng-model="itinerary.ArrTime" class=" form-control input-sm" placeholder="ArrTime"></td>
-                        <td><input type="text" ng-model="itinerary.Status" ng-required=" true" class="form-control input-sm" placeholder="Status"></td>
-                        <td><input type="text" ng-model="itinerary.Class" ng-required=" true" class="form-control input-sm" placeholder="Class"></td>
-                    </tr>
+                                        </div>
+                                    </td>
+                                    <td><input type="text" ng-model="itinerary.From" ng-required="true" class="form-control input-sm" placeholder="From"></td>
+                                    <td><input type="text" ng-model="itinerary.To" ng-required=" true" class="form-control input-sm" placeholder="To"></td>
+                                    <td><input type="text" ng-model="itinerary.Carrier" ng-required=" true" class="form-control input-sm" placeholder="Carrier"></td>
+                                    <td><input type="text" ng-model="itinerary.FlightNo" ng-required=" true" class="form-control input-sm" placeholder="FlightNo."></td>
+                                    <td><input type="text" ng-model="itinerary.DeptTime" class=" form-control input-sm" placeholder="DeptTime"></td>
+                                    <td><input type="text" ng-model="itinerary.ArrTime" class=" form-control input-sm" placeholder="ArrTime"></td>
+                                    <td><input type="text" ng-model="itinerary.Status" ng-required=" true" class="form-control input-sm" placeholder="Status"></td>
+                                    <td><input type="text" ng-model="itinerary.Class" ng-required=" true" class="form-control input-sm" placeholder="Class"></td>
+                                </tr>
 
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="col-md-6">
-                <a class="btn btn-sm btn-success " ng-click="AddNewItinerary()"><i class="glyphicon glyphicon-plus"></i> Add</a>
-            </div>
-
-        </div>
-    </fieldset>
-
-    <div class="pushSmall"></div>
-    <fieldset>
-        <legend>Passenger Information</legend>
-        <div>
-            <div class="col-md-12">
-                <table class="table table-hover table-bordered table-condensed table-striped table-responsive">
-                    <thead class="table-header">
-                    <tr>
-                        <th>First Name</th>
-                        <th>Second Name</th>
-                        <th>Type</th>
-                        <th>Passport No.</th>
-                        <th>Nationality</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="passenger in ticketStep1Model.Passengers">
-                        <td><input type="text" ng-model="passenger.FirstName" ng-required="true" class="form-control input-sm" placeholder="First Name"></td>
-                        <td><input type="text" ng-model="passenger.SecondName" ng-required="true" class="form-control input-sm" placeholder="Second Name"></td>
-                        <td><select class="form-control" id="selectPassengerType">
-                                <option ng-repeat="passengerType in PassengerTypeSet" ng-required='selectedPassengerType == 1' ng-model="passenger.Type">{{passengerType.Name}}</option>
-                            </select></td>
-                        @*<td><input type="text" ng-model="passenger.Type"  class="form-control input-sm" placeholder="Type"></td>*@
-                        <td><input type="text" ng-model="passenger.PassportNo"  class="form-control input-sm" placeholder="Passport No."></td>
-                        <td><input type="text" ng-model="passenger.Nationality"  class="form-control input-sm" placeholder="Nationality"></td>
-                    </tr>
-
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="col-md-6">
-                <a class="btn btn-sm btn-success " ng-click="AddNewPassenger()"><i class="glyphicon glyphicon-plus"></i> Add</a>
-            </div>
-
-        </div>
-    </fieldset>
-
-    <div class="pushSmall"></div>
-    <fieldset>
-        <legend>Fares</legend>
-        <div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="inputBaseFare" class="col-md-2 control-label">Base Fare</label>
-                    <div class="col-md-3">
-                        <input type="number" ng-required="true" class="form-control input-sm" id="inputBaseFare" ng-model="ticketStep1Model.BaseFare">
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputTax" class="col-md-2 control-label">Tax</label>
-                    <div class="col-md-3">
-                        <input type="number" class="form-control input-sm" id="inputTax" ng-model="ticketStep1Model.Tax">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputTotal" class="col-md-2 control-label" >Total</label>
-                    <div class="col-md-3">
-                        <input type="number" disabled="" class="form-control input-sm" id="inputTotal" value="{{ticketStep1Model.Tax + ticketStep1Model.BaseFare}}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputQuotedFare" class="col-md-2 control-label">Quoted Fare</label>
-                    <div class="col-md-3">
-                        <input type="number" ng-required="true" class="form-control input-sm" id="inputQuotedFare" ng-model="ticketStep1Model.QuotedFare">
-                    </div>
-                    <label for="inputMargin" class="col-md-2 control-label">Margin</label>
-                    <div class="input-group col-md-3">
-                        <input type="text" class="form-control input-sm" id="inputMargin">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputRemarks" class="col-md-2 control-label">Remarks</label>
+
                     <div class="col-md-6">
-                        <textarea cols="80" class="form-control input-sm"></textarea> 
-                       @* <input type="text" class="form-control input-sm" id="inputRemarks">*@
+                        <a class="btn btn-sm btn-success " ng-click="AddNewItinerary()"><i class="glyphicon glyphicon-plus"></i> Add</a>
+                    </div>
+
+                </div>
+            </fieldset>
+
+            <div class="pushSmall"></div>
+            <fieldset>
+                <legend>Passenger Information</legend>
+                <div>
+                    <div class="col-md-12">
+                        <table class="table table-hover table-bordered table-condensed table-striped table-responsive">
+                            <thead class="table-header">
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Second Name</th>
+                                    <th>Type</th>
+                                    <th>Passport No.</th>
+                                    <th>Nationality</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="passenger in ticketStep1Model.Passengers">
+                                    <td><input type="text" ng-model="passenger.FirstName" ng-required="true" class="form-control input-sm" placeholder="First Name"></td>
+                                    <td><input type="text" ng-model="passenger.SecondName" ng-required="true" class="form-control input-sm" placeholder="Second Name"></td>
+                                    <td>
+                                        <select class="form-control" id="selectPassengerType">
+                                            <option ng-repeat="passengerType in PassengerTypeSet" ng-required='selectedPassengerType == 1' ng-model="passenger.Type">{{passengerType.Name}}</option>
+                                        </select>
+                                    </td>
+                                    @*<td><input type="text" ng-model="passenger.Type"  class="form-control input-sm" placeholder="Type"></td>*@
+                                    <td><input type="text" ng-model="passenger.PassportNo" class="form-control input-sm" placeholder="Passport No."></td>
+                                    <td><input type="text" ng-model="passenger.Nationality" class="form-control input-sm" placeholder="Nationality"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <a class="btn btn-sm btn-success " ng-click="AddNewPassenger()"><i class="glyphicon glyphicon-plus"></i> Add</a>
+                    </div>
+
+                </div>
+            </fieldset>
+
+            <div class="pushSmall"></div>
+            <fieldset>
+                <legend>Fares</legend>
+                <div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="inputBaseFare" class="col-md-2 control-label">Base Fare</label>
+                            <div class="col-md-3">
+                                <input type="number" ng-required="true" class="form-control input-sm" id="inputBaseFare" ng-model="ticketStep1Model.BaseFare">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTax" class="col-md-2 control-label">Tax</label>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control input-sm" id="inputTax" ng-model="ticketStep1Model.Tax">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTotal" class="col-md-2 control-label">Total</label>
+                            <div class="col-md-3">
+                                <input type="number" disabled="" class="form-control input-sm" id="inputTotal" value="{{ticketStep1Model.Tax + ticketStep1Model.BaseFare}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputQuotedFare" class="col-md-2 control-label">Quoted Fare</label>
+                            <div class="col-md-3">
+                                <input type="number" ng-required="true" class="form-control input-sm" id="inputQuotedFare" ng-model="ticketStep1Model.QuotedFare">
+                            </div>
+                            <label for="inputMargin" class="col-md-2 control-label">Margin</label>
+                            <div class="input-group col-md-3">
+                                <input type="text" class="form-control input-sm" id="inputMargin">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRemarks" class="col-md-2 control-label">Remarks</label>
+                            <div class="col-md-6">
+                                <textarea cols="80" class="form-control input-sm"></textarea>
+                                @* <input type="text" class="form-control input-sm" id="inputRemarks">*@
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </fieldset>
+
+
+            <div class="form-group" ng-hide="ticketStep1Model.Status  == 2">
+                <div class="col-lg-12 col-lg-offset-8">
+                    <button type="submit" class="btn btn-info" ng-click="save()">
+                        <i class="glyphicon glyphicon-hand-up"></i> Save for later
+                    </button>
+                    <button type="submit" class="btn btn-info" ng-click="confirm()">
+                        <i class="glyphicon  glyphicon-thumbs-up"></i> Confirm Booking
+                    </button>
+                </div>
             </div>
+
         </div>
-    </fieldset>
-
-
-        <div class="form-group" ng-hide="ticketStep1Model.Status  == 2">
-            <div class="col-lg-12 col-lg-offset-8">
-                <button type="submit" class="btn btn-info" ng-click="save()">
-                    <i class="glyphicon glyphicon-hand-up"></i> Save for later
-                </button>
-                <button type="submit" class="btn btn-info" ng-click="confirm()">
-                    <i class="glyphicon  glyphicon-thumbs-up"></i> Confirm Booking
-                </button>
-            </div>
-        </div>
-
-    </div>
         <div class="row alert alert-info" ng-show="ticketStep1Model.Status == 2">
             <div class="form-group">
                 <label class="col-md-2 control-label">Mode of Issue</label>
@@ -268,12 +272,12 @@
                 </div>
             </div>
 
-            <div class="form-group" >
+            <div class="form-group">
                 <div class="col-lg-12 col-lg-offset-8">
                     <button type="submit" class="btn btn-info" ng-click="generateInvoice()" ng-hide="ticketStep1Model.InvoiceNumber > 0">
                         <i class="glyphicon  glyphicon-thumbs-up"></i> Generate Invoice
                     </button>
-                    <button type="submit" class="btn btn-info" ng-click="GenerateReceipt()" ng-show="ticketStep1Model.InvoiceNumber > 0"> 
+                    <button type="submit" class="btn btn-info" ng-click="GenerateReceipt()" ng-show="ticketStep1Model.InvoiceNumber > 0">
                         <i class="glyphicon glyphicon-hand-up"></i> Generate Receipt
                     </button>
                 </div>

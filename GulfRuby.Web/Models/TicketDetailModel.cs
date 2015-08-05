@@ -11,6 +11,11 @@ namespace GulfRuby.Web.Models
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class TicketDetailModel
     {
+        public TicketDetailModel()
+        {
+           Itineraries = new List<ItineraryDetailModel>();
+           Passengers = new List<PassengersDetailModel>();
+        }
         public int ID { set; get; }
         public int? InvoiceNumber { set; get; }
         public string IssueDate { get; set; }
@@ -33,14 +38,15 @@ namespace GulfRuby.Web.Models
         public int IsActive { set; get; }
     }
 
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ItineraryDetailModel
     {
 
-        public int Id { get; set; }
+        public int ID { get; set; }
         public int BookingId { set; get; }
         public string Date { set; get; }
         public bool DateIsOpen { set; get; }
-
         public string From { set; get; }
         public string To { set; get; }
         public string Carrier { set; get; }
@@ -54,10 +60,12 @@ namespace GulfRuby.Web.Models
       
     }
 
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PassengersDetailModel  
     {
        
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         public int BookingId { get; set; }
 

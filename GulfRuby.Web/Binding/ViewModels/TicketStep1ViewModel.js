@@ -171,6 +171,19 @@
 
 
 
+
+
+    $scope.setupBookingDetails = function () {
+        if ($scope.BookingID > 0) {
+
+            viewModelHelper.apiGet('api/ticket/' + $scope.BookingID, null,
+                function(result) {
+                    $scope.ticketStep1Model = result.data;
+     });
+        }
+
+        };
+
     $scope.save = function() {
         $scope.setupDatesOnSubmit();
         validator.ValidateModel($scope.ticketStep1Model, ticketStep1ModelRules);
@@ -184,8 +197,8 @@
             viewModelHelper.apiPost('api/ticket/save', $scope.ticketStep1Model,
                 function (result) {
                   $scope.viewMode = 'success';
-                    $scope.ticketStep1Model.ID = result.data;
-                    alert('Success');
+                  $scope.ticketStep1Model.ID = result.data.ID;
+                  $scope.ticketStep1Model.IssueDate = result.data.IssueDate;
                 });
 
         } else {

@@ -10,7 +10,8 @@ namespace GulRuby.Data.Contracts.Repository_Interfaces
 {
    public interface ITicketRepository : IDataRepository<Booking>
     {
-       void AddIteniaryToTicket(Booking t, Itinerary i);   
+  
+       Booking GetBookingAllById(int id);
     }
 }
     

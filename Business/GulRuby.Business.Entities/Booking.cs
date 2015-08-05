@@ -39,7 +39,7 @@ namespace GulRuby.Business.Entities
         public int ? InvoiceNumber {set;get;}
 
         
-        public DateTime?IssueDate {get;set;}
+        public DateTime? IssueDate {get;set;}
         public CustomerTypeEnum CustomerType{set;get;}        
         public string CareOf {set;get;}
         public string CorporateClient{set;get;}
@@ -48,7 +48,7 @@ namespace GulRuby.Business.Entities
         public string Email{set;get;}       
         public virtual ICollection<Itinerary> Itinerary {set;get;}
         public virtual ICollection<PassengerInfo> Passengers { set; get; }        
-        public decimal? BaseFare { set; get; }
+        public decimal BaseFare { set; get; }
         public decimal Tax { set; get; }
         public decimal QuotedFare { set; get; }
         public TicketStatusEnum Status {set;get;}
