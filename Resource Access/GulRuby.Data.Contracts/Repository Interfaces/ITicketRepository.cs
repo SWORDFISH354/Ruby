@@ -8,10 +8,9 @@ using GulRuby.Business.Entities;
 
 namespace GulRuby.Data.Contracts.Repository_Interfaces
 {
-   public interface ITicketRepository : IDataRepository<Booking>
+    public interface ITicketRepository : IDataRepository<Booking>
     {
-  
-       Booking GetBookingAllById(int id);
+        List<Booking> GetAllPendingBookings();
+        Booking GetBookingAllById(int id);
     }
 }
-    

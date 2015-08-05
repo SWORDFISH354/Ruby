@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using GulRuby.Business.Entities;
+using GulRuby.Business.Entities.Enums;
 using GulRuby.Data.Contracts.Repository_Interfaces;
 
 namespace GulfRuby.Data.DataRepository
@@ -48,6 +49,17 @@ namespace GulfRuby.Data.DataRepository
                         .FirstOrDefault();
 
                 return booking;//(from e in entityContext.BookingSet where e.ID == id select e).FirstOrDefault();
+            }
+        }
+
+        public List<Booking> GetAllPendingBookings()
+        {
+            using (var context = new GulfRubyContext())
+            {
+                const int status = (int) TicketStatusEnum.NotBooked;
+                var bookingList =
+                    context.BookingSet.Where(a => a.Status == status).ToList();
+                return bookingList;//(from e in entityContext.BookingSet where e.ID == id select e).FirstOrDefault();
             }
         }
     }

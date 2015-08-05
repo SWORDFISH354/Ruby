@@ -169,10 +169,6 @@
         }
     }
 
-
-
-
-
     $scope.setupBookingDetails = function () {
         if ($scope.BookingID > 0) {
 

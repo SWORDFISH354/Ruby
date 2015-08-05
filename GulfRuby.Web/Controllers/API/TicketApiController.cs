@@ -45,8 +45,8 @@ namespace GulfRuby.Web.Controllers.API
             {
                 ITicketRepository ticketRepository = _dataRepositoryFactory.GetDataRepository<ITicketRepository>();
 
-                var ticketList = ticketRepository.Get().ToList();
-                var miniTicketList = from ticket in ticketList
+                var bookingList = ticketRepository.GetAllPendingBookings();
+                var miniBookingList = from ticket in bookingList
                                      select new
                                      {
                                          ticket.ID,
@@ -54,7 +54,7 @@ namespace GulfRuby.Web.Controllers.API
                                          ticket.IssueDate,
                                          ticket.InvoiceNumber
                                      };
-                return request.CreateResponse(HttpStatusCode.OK, miniTicketList);
+                return request.CreateResponse(HttpStatusCode.OK, miniBookingList);
                 //  return request.CreateResponse(HttpStatusCode.OK,ticketList);
             });
 
@@ -90,6 +90,7 @@ namespace GulfRuby.Web.Controllers.API
             HttpResponseMessage response;
             ITicketRepository ticketRepository = _dataRepositoryFactory.GetDataRepository<ITicketRepository>();
             var booking = SetupBookingEntityFromRequest(model);
+            booking.Status = TicketStatusEnum.NotBooked;
             if (model.ID == 0)
             {
                 booking = AddNewBooking(booking, ticketRepository);
