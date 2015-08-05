@@ -3,8 +3,8 @@
     var ItineraryModel = function () {
 
         var self = this;
-        self.Id = 0;
-        self.TicketId = 0;
+        self.ID = 0;
+        self.BookingId = 0;
         self.Date = '';
         self.DateIsOpen = false;
         self.From = '';
@@ -21,8 +21,8 @@
 
     var PassengerInfo = function () {
         var self = this;
-        self.Id = 0;
-        self.TicketId = 0;
+        self.ID = 0;
+        self.BookingId = 0;
         self.FirstName = '';
         self.SecondName = '';
         self.Type = '';
@@ -38,7 +38,7 @@
 
         var self = this;
 
-        self.Id = 0;
+        self.ID = 0;
         self.InvoiceNumber = 0;
         self.IssueDate = '';
         self.CustomerType = '';

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Common.Core;
 using Core.Common.Contracts;
+using GulRuby.Business.Entities.Enums;
+
 //using System.Data.Entity;
 //using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,20 +15,9 @@ using Core.Common.Contracts;
 
 namespace GulRuby.Business.Entities
 {
-    public enum TicketStatusEnum
-    {
-        Booked,NotBooked
-    }
 
-    public enum CustomerTypeEnum
-    {
-        WalkIn = 1,
-        Corporate 
-    }
-    public enum ModeOfIssueEnum
-    {
-        Cash, CreditNote
-    }
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class Booking:ObjectBase,IIdentifiableEntity
     {
         public Booking()

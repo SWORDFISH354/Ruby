@@ -6,9 +6,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Core.Common.Contracts;
+using Core.Common.Core;
 using GulfRuby.Web.Core;
 using GulfRuby.Web.Models;
 using GulRuby.Business.Entities;
+using GulRuby.Business.Entities.Enums;
 using GulRuby.Data.Contracts.Repository_Interfaces;
 using WebMatrix.WebData;
 
@@ -57,120 +59,52 @@ namespace GulfRuby.Web.Controllers.API
 
         }
 
+
+        [HttpGet]
+        [Route("test")]
+        public HttpResponseMessage Save(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = null;
+            var obj = ObjectBase.Container.GetExportedValueOrDefault<Booking>();
+            var obj1 = ClientObjectBase.Container.GetExportedValueOrDefault<TicketDetailModel>();
+            return response;
+        }
+
+
         [HttpPost]
         [Route("save")]
         [Authorize]
         public HttpResponseMessage Save(HttpRequestMessage request, [FromBody]TicketDetailModel model)
         {
             HttpResponseMessage response;
-
             ITicketRepository ticketRepository = _dataRepositoryFactory.GetDataRepository<ITicketRepository>();
-
+            var booking = SetupBookingEntityFromRequest(model);
             if (model.ID == 0)
             {
-               var booking = AddNewBooking(model, ticketRepository);
-               return request.CreateResponse(HttpStatusCode.OK, booking);
-              //  response = request.CreateResponse(HttpStatusCode.OK);
+                booking = AddNewBooking(booking, ticketRepository);
+
+                return request.CreateResponse(HttpStatusCode.OK, booking.ID);
             }
             else
             {
+                
                 // upDATE
                 //
                 response = request.CreateResponse(HttpStatusCode.OK);
             }
             return response;
-            /*if (model.Id == 0)
+            /*if (model.ID == 0)
             {
               
              }*/
 
         }
 
-        private Booking AddNewBooking(TicketDetailModel model, ITicketRepository ticketRepository)
+        private Booking AddNewBooking(Booking booking, ITicketRepository ticketRepository)
         {
             try
             {
-
-                var ticket = new Booking
-                             {
-                                 ID = 0,
-                                 BaseFare = model.BaseFare,
-                                 CareOf = model.CareOf,
-                                 ContactNumber = model.ContactNumber,
-                                 CorporateClient = model.CorporateClient,
-                                 CustomerName = model.CustomerName,
-                                 CustomerType = (CustomerTypeEnum)model.CustomerType,
-                                 //CustomerType = (CustomerTypeEnum)CustomerType,
-                                 // DueDate = String.IsNullOrEmpty(model.IssueDate.ToString()) ? (DateTime?)null : DateTime.ParseExact(model.IssueDate.ToString(), "dd/MM/yyyy", null),
-                                 //DueDate = model.DueDate,
-                                 Email = model.Email,
-                                 InvoiceNumber = model.InvoiceNumber,
-                                 IsActive = true,
-                                 LastModifiedBy =  User.Identity.Name,
-                                 //ModeOfIssue = model.ModeOfIssue,
-                                 QuotedFare = model.QuotedFare,
-                                 // Status = model.Status,
-                                 Tax = model.Tax,
-                                 AddedTime = DateTime.UtcNow,
-                                 IssueDate = System.DateTime.Now,
-                                 DueDate = System.DateTime.Now
-                             };
-
-
-                //  List<Itinerary> itineraryies = new List<Itinerary>();
-                foreach (ItineraryDetailModel itinerary in model.Itineraries)
-                {
-                    Itinerary tempItinerary = new Itinerary()
-                                              {
-                                                  ID = 0,
-                                                  //ArrTime = string.IsNullOrEmpty(itinerary.ArrTime) ? (DateTime?) null : DateTime.ParseExact(itinerary.ArrTime,"dd/mm/yyyy",null),
-                                                  Carrier = itinerary.Carrier,
-                                                  // Date = string.IsNullOrEmpty(itinerary.Date)? (DateTime?) null : DateTime.ParseExact(itinerary.Date,"dd/mm/yyyy",null),
-                                                  DateIsOpen = itinerary.DateIsOpen,
-                                                  //DepTime =string.IsNullOrEmpty(itinerary.DepTime)? (DateTime?) null :DateTime.ParseExact(itinerary.DepTime,"dd/mm/yyyy",null),
-                                                  FlightNo = itinerary.FlightNo,
-                                                  From = itinerary.From,
-                                                  IsActive = true,
-                                                  To = itinerary.To,
-                                                  
-                                              };
-                    tempItinerary.Class = ItineraryClassEnum.Business;
-                    tempItinerary.Status = ItineraryStatusEnum.Booked;
-                    tempItinerary.BookingId = ticket.ID;
-                    tempItinerary.DepTime = System.DateTime.Now;
-                    tempItinerary.ArrTime = System.DateTime.Now;
-                    tempItinerary.Date = System.DateTime.Now;
-
-                    ticket.Itinerary.Add(tempItinerary);
-                }
-
-
-                // List<PassengerInfo> passengerInfo = new List<PassengerInfo>();
-                foreach (PassengersDetailModel pass in model.Passengers)
-                {
-                    PassengerInfo tempPassenger = new PassengerInfo()
-                                                  {
-                                                      Id = 0,
-                                                      AddedBy = User.Identity.Name, // Updated with user name
-                                                      AddedTime = System.DateTime.Now,
-                                                      FirstName = pass.FirstName,
-                                                      IsActive = true,
-                                                      Nationality = pass.Nationality,
-                                                      PassportNo = pass.PassportNo,
-                                                      SecondName = pass.SecondName,
-                                                      BookingId = ticket.ID,
-                                                      Type = pass.Type,
-                                                  };
-                    ticket.Passengers.Add(tempPassenger);
-                }
-
-                // if (!WebSecurity.Initialized)
-                //    WebSecurity.InitializeDatabaseConnection("GulfRuby", "Account", "AccountId", "UserName", autoCreateTables: true);
-                //if (!_securityAdapter.UserExists(model.UserName))
-                //{
-                //    _securityAdapter.Register(model.UserName, "GulfRubyPassword00971", null);
-
-                var ticketResult = ticketRepository.Add(ticket);
+                var ticketResult = ticketRepository.Add(booking);
                 return ticketResult;
             }
             catch (NullReferenceException ex)
@@ -178,6 +112,91 @@ namespace GulfRuby.Web.Controllers.API
                 System.Console.WriteLine("Processor Usage" + ex.Message);
             }
             return null;
+        }
+
+
+
+        private Booking UpdateNewBooking(Booking booking, ITicketRepository ticketRepository)
+        {
+            try
+            {
+                var ticketResult = ticketRepository.Update(booking);
+                return ticketResult;
+            }
+            catch (NullReferenceException ex)
+            {
+                System.Console.WriteLine("Processor Usage" + ex.Message);
+            }
+            return null;
+        }
+
+
+
+
+        private Booking SetupBookingEntityFromRequest(TicketDetailModel model)
+        {
+            var ticket = new Booking
+                         {
+                             ID = model.ID,
+                             BaseFare = model.BaseFare,
+                             CareOf = model.CareOf,
+                             ContactNumber = model.ContactNumber,
+                             CorporateClient = model.CorporateClient,
+                             CustomerName = model.CustomerName,
+                             CustomerType = (CustomerTypeEnum)model.CustomerType,
+                             Email = model.Email,
+                             InvoiceNumber = model.InvoiceNumber,
+                             IsActive = true, //ToDo: need it to come from UI since this function is used for both Create and update
+                             LastModifiedBy = User.Identity.Name,
+                             QuotedFare = model.QuotedFare,
+                             Tax = model.Tax,
+                             AddedTime = DateTime.UtcNow,
+                             IssueDate = System.DateTime.Now,
+                             DueDate = System.DateTime.Now
+                         };
+
+
+            //  List<Itinerary> itineraryies = new List<Itinerary>();
+            foreach (ItineraryDetailModel itinerary in model.Itineraries)
+            {
+                Itinerary tempItinerary = new Itinerary()
+                                          {
+                                              ID = itinerary.Id,
+                                              ArrTime = itinerary.ArrTime,
+                                              Carrier = itinerary.Carrier,
+                                              DateIsOpen = itinerary.DateIsOpen,
+                                              DepTime = itinerary.DepTime,
+                                              FlightNo = itinerary.FlightNo,
+                                              From = itinerary.From,
+                                              IsActive = true, //ToDo: need it to come from UI since this function is used for both Create and update
+                                              To = itinerary.To,
+                                              Class = ItineraryClassEnum.Business,
+                                              Status = ItineraryStatusEnum.Booked,
+                                              Date = String.IsNullOrEmpty(itinerary.Date) ? (DateTime?)null : DateTime.ParseExact(itinerary.Date, "dd/MM/yyyy", null),
+                                          };
+                ticket.Itinerary.Add(tempItinerary);
+            }
+
+
+            // List<PassengerInfo> passengerInfo = new List<PassengerInfo>();
+            foreach (PassengersDetailModel pass in model.Passengers)
+            {
+                PassengerInfo tempPassenger = new PassengerInfo()
+                                              {
+                                                  ID = pass.Id,
+                                                  AddedBy = User.Identity.Name, // Updated with user name
+                                                  AddedTime = System.DateTime.UtcNow,
+                                                  FirstName = pass.FirstName,
+                                                  IsActive = true, //ToDo: need it to come from UI since this function is used for both Create and update
+                                                  Nationality = pass.Nationality,
+                                                  PassportNo = pass.PassportNo,
+                                                  SecondName = pass.SecondName,
+                                                  BookingId = ticket.ID,
+                                                  Type = pass.Type,
+                                              };
+                ticket.Passengers.Add(tempPassenger);
+            }
+            return ticket;
         }
     }
 }

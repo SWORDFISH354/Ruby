@@ -36,6 +36,8 @@
       <HintPath>..\..\packages\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +54,9 @@
     <Compile Include="Airline.cs" />
     <Compile Include="CompanyInformation.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="Enums\CustomerTypeEnum.cs" />
+    <Compile Include="Enums\ModeOfIssueEnum.cs" />
+    <Compile Include="Enums\TicketStatusEnum.cs" />
     <Compile Include="ItineraryModel.cs" />
     <Compile Include="Passengers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

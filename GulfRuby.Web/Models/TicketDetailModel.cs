@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Web;
 
 namespace GulfRuby.Web.Models
 {
+
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class TicketDetailModel
     {
         public int ID { set; get; }
@@ -33,7 +37,7 @@ namespace GulfRuby.Web.Models
     {
 
         public int Id { get; set; }
-        public int TicketId { set; get; }
+        public int BookingId { set; get; }
         public string Date { set; get; }
         public bool DateIsOpen { set; get; }
 
@@ -43,7 +47,7 @@ namespace GulfRuby.Web.Models
         public string FlightNo { set; get; }
         public string DepTime { set; get; }
         public string ArrTime { set; get; }
-        public int Status { set; get; }
+        public int Status { set; get; } 
         public int Class { set; get; }
         public bool IsActive { set; get; }
 
@@ -55,7 +59,7 @@ namespace GulfRuby.Web.Models
        
         public int Id { get; set; }
 
-        public int TicketId { get; set; }
+        public int BookingId { get; set; }
 
         public string FirstName { get; set; }
         public string SecondName { get; set; }

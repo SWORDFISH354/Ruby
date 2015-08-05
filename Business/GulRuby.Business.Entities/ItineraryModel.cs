@@ -11,21 +11,20 @@ namespace GulRuby.Business.Entities
 {
     public enum ItineraryClassEnum
     {
-
-        First,Business
+        NotSet, First = 1, Business, Economy
     }
     
     public enum ItineraryStatusEnum
     {
-        Booked,NotBooked
+        NotSet, Booked = 1, NotBooked
     }
     public class Itinerary //: ObjectBase//, IIdentifiableEntity
     {
         //[NotNavigable]
         //public int EntityId
         //{
-        //    get { return Id; }
-        //    set { Id = value; }
+        //    get { return ID; }
+        //    set { ID = value; }
         //}
         // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }         
@@ -37,8 +36,8 @@ namespace GulRuby.Business.Entities
         public string To {set;get;}
         public string Carrier {set;get;}
         public string FlightNo {set;get;}
-        public DateTime? DepTime {set;get;}
-        public DateTime? ArrTime {set;get;}
+        public string DepTime {set;get;}
+        public string ArrTime {set;get;}
         public ItineraryStatusEnum Status {set;get;}
         public ItineraryClassEnum Class{set;get;}
         public bool IsActive { set; get; }

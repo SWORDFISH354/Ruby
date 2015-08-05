@@ -35,7 +35,7 @@ namespace GulfRuby.Web.Controllers.MVC
 
 
          [HttpGet]
-        [Route("ticket/{id}/step1")]
+        [Route("ticket/{id}")]
         [Authorize]
         public ActionResult TicketStep1(int id)
         {

@@ -164,7 +164,7 @@ angular.module('ngCookies', ['ng']).
          * @description
          * Returns the value of given cookie key
          *
-         * @param {string} key Id to use for lookup.
+         * @param {string} key ID to use for lookup.
          * @returns {Object} Deserialized cookie value.
          */
         get: function(key) {
@@ -179,7 +179,7 @@ angular.module('ngCookies', ['ng']).
          * @description
          * Sets a value for given cookie key
          *
-         * @param {string} key Id for the `value`.
+         * @param {string} key ID for the `value`.
          * @param {Object} value Value to be stored.
          */
         put: function(key, value) {
@@ -193,7 +193,7 @@ angular.module('ngCookies', ['ng']).
          * @description
          * Remove given cookie
          *
-         * @param {string} key Id of the key-value pair to delete.
+         * @param {string} key ID of the key-value pair to delete.
          */
         remove: function(key) {
           delete $cookies[key];

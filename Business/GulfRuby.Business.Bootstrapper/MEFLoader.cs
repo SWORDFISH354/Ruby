@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GulfRuby.Data.DataRepository;
+using GulRuby.Business.Entities;
 
 namespace GulfRuby.Business.Bootstrapper
 {
@@ -15,7 +16,7 @@ namespace GulfRuby.Business.Bootstrapper
             AggregateCatalog catalog = new AggregateCatalog();
             //add items to catalog here
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(AirlineRepository).Assembly));
-
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(Booking).Assembly));
             CompositionContainer container = new CompositionContainer(catalog);
             return container;
         }

@@ -25,6 +25,14 @@
         }
         return true;
     };
+    var validateEmail = function() {
+      if($scope.selectedCustomerType === 1) {
+          var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+          if ($scope.ticketStep1Model.Email == '') return true;
+           return re.test($scope.ticketStep1Model.Email);
+      }
+      return true;
+    };
     var validateCorporateClient = function() {
         if ($scope.selectedCustomerType === 2) {
             return !($scope.ticketStep1Model.CorporateClient.toString().trim() === '');
@@ -54,6 +62,13 @@
                 params: function () { return true; } // must be function so it can be obtained on-demand
             }
         }));
+        ticketStep1ModelRules.push(new validator.PropertyRule("Email", {
+                custom: {
+                    validator: validateEmail,
+                    message: "Please enter a valid Email address",
+                    params: function () { return true; } // must be function so it can be obtained on-demand
+                }
+            }));
         ticketStep1ModelRules.push(new validator.PropertyRule("CorporateClient", {
             custom: {
                 validator: validateCorporateClient,
@@ -141,8 +156,23 @@
         $scope.openedDueDate = true;
     };
 
-    $scope.save = function() {
 
+    $scope.setupDatesOnSubmit = function () {
+        if ($scope.ticketStep1Model.Itineraries.length > 0) {
+            for (var i = 0; i <= $scope.ticketStep1Model.Itineraries.length - 1;i++)
+            {
+                if ($scope.ticketStep1Model.Itineraries[i].Date !== null && $scope.ticketStep1Model.Itineraries[i].Date !== '')
+                    $scope.ticketStep1Model.Itineraries[i].Date = moment($scope.ticketStep1Model.Itineraries[i].Date).format("DD/MM/YYYY").toString();
+                else
+                    $scope.ticketStep1Model.Itineraries[i].Date = '';
+            }
+        }
+    }
+
+
+
+    $scope.save = function() {
+        $scope.setupDatesOnSubmit();
         validator.ValidateModel($scope.ticketStep1Model, ticketStep1ModelRules);
         viewModelHelper.modelIsValid = $scope.ticketStep1Model.isValid;
         viewModelHelper.modelErrors = $scope.ticketStep1Model.errors;
@@ -154,7 +184,9 @@
             viewModelHelper.apiPost('api/ticket/save', $scope.ticketStep1Model,
                 function (result) {
                   $scope.viewMode = 'success';
-            });
+                    $scope.ticketStep1Model.ID = result.data;
+                    alert('Success');
+                });
 
         } else {
             viewModelHelper.modelErrors = $scope.ticketStep1Model.errors;

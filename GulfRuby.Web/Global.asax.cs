@@ -14,6 +14,8 @@ using Core.Common.Core;
 using GulfRuby.Business.Bootstrapper;
 using GulfRuby.Client.Bootstrapper;
 using GulfRuby.Web.Core;
+using GulfRuby.Web.Models;
+using GulRuby.Business.Entities;
 
 namespace GulfRuby.Web
 {
@@ -32,7 +34,10 @@ namespace GulfRuby.Web
 
             AggregateCatalog catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+        //    catalog.Catalogs.Add(new AssemblyCatalog(typeof(Booking).Assembly));
+           // catalog.Catalogs.Add(new AssemblyCatalog(typeof(TicketDetailModel).Assembly));
             CompositionContainer container = MefLoader.Init(catalog.Catalogs);
+            ClientObjectBase.Container = container;
             ObjectBase.Container = MEFLoader.Init();
             DependencyResolver.SetResolver(new MefDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new MefAPIDependencyResolver(container);

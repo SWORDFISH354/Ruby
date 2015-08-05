@@ -44,6 +44,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,6 +71,10 @@
     <ProjectReference Include="..\..\Resource Access\GulRuby.Data.Contracts\GulRuby.Data.Contracts.csproj">
       <Project>{A2310B94-1B03-489F-A99F-47893EC5C61E}</Project>
       <Name>GulRuby.Data.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GulRuby.Business.Entities\GulRuby.Business.Entities.csproj">
+      <Project>{5D31988F-9900-4591-A177-CD96D58AE7E6}</Project>
+      <Name>GulRuby.Business.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

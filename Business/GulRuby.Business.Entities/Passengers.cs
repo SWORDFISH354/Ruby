@@ -14,11 +14,11 @@ namespace GulRuby.Business.Entities
        //[NotNavigable]
        //public int EntityId
        //{
-       //    get { return Id; }
-       //    set { Id = value; }
+       //    get { return ID; }
+       //    set { ID = value; }
        //}
       //  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int ID { get; set; }
         
         public int BookingId{get;set;}
        
