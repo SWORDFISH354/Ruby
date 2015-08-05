@@ -64,6 +64,6 @@ namespace GulRuby.Business.Entities
         public DateTime DueDate {set;get;}
         public DateTime AddedTime {set;get;}
         public string LastModifiedBy {set;get;}
-        public int IsActive {set;get;}
+        public bool IsActive {set;get;}
     }
 }

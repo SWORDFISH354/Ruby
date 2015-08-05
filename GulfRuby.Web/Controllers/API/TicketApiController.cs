@@ -105,7 +105,7 @@ namespace GulfRuby.Web.Controllers.API
                                  //DueDate = model.DueDate,
                                  Email = model.Email,
                                  InvoiceNumber = model.InvoiceNumber,
-                                 IsActive = 1,
+                                 IsActive = true,
                                  LastModifiedBy =  User.Identity.Name,
                                  //ModeOfIssue = model.ModeOfIssue,
                                  QuotedFare = model.QuotedFare,
@@ -130,7 +130,7 @@ namespace GulfRuby.Web.Controllers.API
                                                   //DepTime =string.IsNullOrEmpty(itinerary.DepTime)? (DateTime?) null :DateTime.ParseExact(itinerary.DepTime,"dd/mm/yyyy",null),
                                                   FlightNo = itinerary.FlightNo,
                                                   From = itinerary.From,
-                                                  IsActive = itinerary.IsActive,
+                                                  IsActive = true,
                                                   To = itinerary.To,
                                                   
                                               };
@@ -154,7 +154,7 @@ namespace GulfRuby.Web.Controllers.API
                                                       AddedBy = User.Identity.Name, // Updated with user name
                                                       AddedTime = System.DateTime.Now,
                                                       FirstName = pass.FirstName,
-                                                      IsActive = pass.IsActive,
+                                                      IsActive = true,
                                                       Nationality = pass.Nationality,
                                                       PassportNo = pass.PassportNo,
                                                       SecondName = pass.SecondName,
